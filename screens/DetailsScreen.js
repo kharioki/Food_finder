@@ -14,10 +14,6 @@ export default Details = ({navigation}) => {
         onPress={() => navigation.navigate('Home')}
       />
       <Button title="Go back" onPress={() => navigation.goBack()} />
-      <Button
-        title="Go to the first screen"
-        onPress={() => navigation.popToTop()}
-      />
     </View>
   );
 };
