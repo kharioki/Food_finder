@@ -2,15 +2,18 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import Home from './screens/HomeScreen';
 import Details from './screens/DetailsScreen';
+
+Icon.loadFont();
 
 const HomeStack = createStackNavigator();
 const DetailsStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-const HomeStackScreen = () => (
+const HomeStackScreen = ({navigation}) => (
   <HomeStack.Navigator
     screenOptions={{
       headerStyle: {
@@ -21,7 +24,21 @@ const HomeStackScreen = () => (
         fontWeight: 'bold',
       },
     }}>
-    <HomeStack.Screen name="Home" component={Home} />
+    <HomeStack.Screen
+      name="Home"
+      component={Home}
+      options={{
+        title: 'Overview',
+        headerLeft: () => (
+          <Icon.Button
+            name="ios-menu"
+            size={25}
+            backgroundColor="#009387"
+            onPress={() => navigation.openDrawer()}
+          />
+        ),
+      }}
+    />
   </HomeStack.Navigator>
 );
 
