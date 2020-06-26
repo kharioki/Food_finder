@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
+import {View, ActivityIndicator} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -14,6 +15,38 @@ import RootStack from './screens/RootStackScreen';
 const Drawer = createDrawerNavigator();
 
 export default App = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [userToken, setUserToken] = useState(null);
+
+  const authContext = useMemo(() => ({
+    signIn: () => {
+      setUserToken('kharioki');
+      setIsLoading(false);
+    },
+    signOut: () => {
+      setUserToken(null);
+      setIsLoading(false);
+    },
+    signUp: () => {
+      setUserToken('kharioki');
+      setIsLoading(false);
+    },
+  }));
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
   return (
     <NavigationContainer>
       <RootStack />
