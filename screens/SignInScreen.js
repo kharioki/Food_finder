@@ -22,7 +22,7 @@ FAIcon.loadFont();
 
 export default SignIn = ({navigation}) => {
   const [data, setData] = useState({
-    email: '',
+    username: '',
     password: '',
     check_textInputChange: false,
     secureTextEntry: true,
@@ -35,13 +35,13 @@ export default SignIn = ({navigation}) => {
       setData({
         ...data,
         check_textInputChange: true,
-        email: val,
+        username: val,
       });
     } else {
       setData({
         ...data,
         check_textInputChange: false,
-        email: val,
+        username: val,
       });
     }
   };
@@ -60,6 +60,10 @@ export default SignIn = ({navigation}) => {
     });
   };
 
+  const handleLogin = (username, password) => {
+    signIn(username, password);
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#009387" barStyle="light-content" />
@@ -67,11 +71,11 @@ export default SignIn = ({navigation}) => {
         <Text style={styles.text_header}>Welcome!</Text>
       </View>
       <Animatable.View style={styles.footer} animation="fadeInUpBig">
-        <Text style={styles.text_footer}>Email</Text>
+        <Text style={styles.text_footer}>Username</Text>
         <View style={styles.action}>
           <FAIcon name="user-o" color="#05375a" size={20} />
           <TextInput
-            placeholder="Your Email"
+            placeholder="Your Username"
             style={styles.textInput}
             autoCapitalize="none"
             onChangeText={val => textInputChange(val)}
@@ -103,7 +107,9 @@ export default SignIn = ({navigation}) => {
         </View>
 
         <View style={styles.button}>
-          <TouchableOpacity style={styles.signIn} onPress={() => signIn()}>
+          <TouchableOpacity
+            style={styles.signIn}
+            onPress={() => handleLogin(data.username, data.password)}>
             <LinearGradient
               colors={['#08d4c4', '#01ab9d']}
               style={styles.signIn}>
