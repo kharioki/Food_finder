@@ -4,6 +4,8 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
+import {AuthContext} from './components/context';
+
 import MainTabScreen from './screens/MainTabScreen';
 import {DrawerContent} from './screens/DrawerContent';
 import Bookmarks from './screens/BookmarkScreen';
@@ -48,14 +50,20 @@ export default App = () => {
   }
 
   return (
-    <NavigationContainer>
-      <RootStack />
-      {/*<Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
-        <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
-        <Drawer.Screen name="Bookmarks" component={Bookmarks} />
-        <Drawer.Screen name="Settings" component={Settings} />
-        <Drawer.Screen name="Support" component={Support} />
-  </Drawer.Navigator>*/}
-    </NavigationContainer>
+    <AuthContext.Provider value={authContext}>
+      <NavigationContainer>
+        {userToken !== null ? (
+          <Drawer.Navigator
+            drawerContent={props => <DrawerContent {...props} />}>
+            <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
+            <Drawer.Screen name="Bookmarks" component={Bookmarks} />
+            <Drawer.Screen name="Settings" component={Settings} />
+            <Drawer.Screen name="Support" component={Support} />
+          </Drawer.Navigator>
+        ) : (
+          <RootStack />
+        )}
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 };

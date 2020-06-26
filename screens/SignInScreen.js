@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   View,
   Text,
@@ -15,6 +15,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Feather';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 
+import {AuthContext} from '../components/context';
+
 Icon.loadFont();
 FAIcon.loadFont();
 
@@ -25,6 +27,8 @@ export default SignIn = ({navigation}) => {
     check_textInputChange: false,
     secureTextEntry: true,
   });
+
+  const {signIn} = useContext(AuthContext);
 
   const textInputChange = val => {
     if (val.length !== 0) {
@@ -99,9 +103,13 @@ export default SignIn = ({navigation}) => {
         </View>
 
         <View style={styles.button}>
-          <LinearGradient colors={['#08d4c4', '#01ab9d']} style={styles.signIn}>
-            <Text style={[styles.textSign, {color: '#fff'}]}>Sign In</Text>
-          </LinearGradient>
+          <TouchableOpacity style={styles.signIn} onPress={() => signIn()}>
+            <LinearGradient
+              colors={['#08d4c4', '#01ab9d']}
+              style={styles.signIn}>
+              <Text style={[styles.textSign, {color: '#fff'}]}>Sign In</Text>
+            </LinearGradient>
+          </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => navigation.navigate('SignUp')}

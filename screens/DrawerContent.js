@@ -14,6 +14,8 @@ import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+Icon.loadFont();
+
 export function DrawerContent(props) {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
