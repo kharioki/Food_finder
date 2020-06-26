@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  Dimensions,
+  StatusBar,
   Button,
   TextInput,
   Platform,
@@ -58,10 +58,11 @@ export default SignIn = ({navigation}) => {
 
   return (
     <View style={styles.container}>
+      <StatusBar backgroundColor="#009387" barStyle="light-content" />
       <View style={styles.header}>
         <Text style={styles.text_header}>Welcome!</Text>
       </View>
-      <View style={styles.footer}>
+      <Animatable.View style={styles.footer} animation="fadeInUpBig">
         <Text style={styles.text_footer}>Email</Text>
         <View style={styles.action}>
           <FAIcon name="user-o" color="#05375a" size={20} />
@@ -80,7 +81,7 @@ export default SignIn = ({navigation}) => {
 
         <Text style={[styles.text_footer, {marginTop: 35}]}>Password</Text>
         <View style={styles.action}>
-          <FAIcon name="lock" color="#05375a" size={20} />
+          <Icon name="lock" color="#05375a" size={20} />
           <TextInput
             placeholder="Your Password"
             secureTextEntry={data.secureTextEntry}
@@ -115,7 +116,7 @@ export default SignIn = ({navigation}) => {
             <Text style={[styles.textSign, {color: '#009387'}]}>Sign Up</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </Animatable.View>
     </View>
   );
 };
