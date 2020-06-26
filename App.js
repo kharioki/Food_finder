@@ -131,7 +131,7 @@ export default App = () => {
         dispatch({type: 'REGISTER', id: userName, token: userToken});
       },
       toggleTheme: () => {
-        setIsDarkTheme(!isDarkTheme);
+        setIsDarkTheme(isDarkTheme => !isDarkTheme);
       },
     }),
     [],
