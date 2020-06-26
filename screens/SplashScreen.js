@@ -11,10 +11,13 @@ import {
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useTheme} from '@react-navigation/native';
 
 Icon.loadFont();
 
 export default Splash = ({navigation}) => {
+  const {colors} = useTheme();
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -26,8 +29,17 @@ export default Splash = ({navigation}) => {
           resizeMode="stretch"
         />
       </View>
-      <Animatable.View style={styles.footer} animation="fadeInUpBig">
-        <Text style={styles.title}>Stay safe around everyone.</Text>
+      <Animatable.View
+        style={[
+          styles.footer,
+          {
+            backgroundColor: colors.background,
+          },
+        ]}
+        animation="fadeInUpBig">
+        <Text style={[styles.title, {color: colors.text}]}>
+          Stay safe around everyone.
+        </Text>
         <Text style={styles.text}>Sign in with account</Text>
         <View style={styles.button}>
           <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>

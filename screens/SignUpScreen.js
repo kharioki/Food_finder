@@ -13,6 +13,7 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Feather';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
+import {useTheme} from '@react-navigation/native';
 
 import {AuthContext} from '../components/context';
 
@@ -20,6 +21,8 @@ Icon.loadFont();
 FAIcon.loadFont();
 
 export default SignUp = ({navigation}) => {
+  const {colors} = useTheme();
+
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -80,13 +83,21 @@ export default SignUp = ({navigation}) => {
       <View style={styles.header}>
         <Text style={styles.text_header}>Register Now!</Text>
       </View>
-      <Animatable.View style={styles.footer} animation="fadeInUpBig">
-        <Text style={styles.text_footer}>Email</Text>
+      <Animatable.View
+        style={[
+          styles.footer,
+          {
+            backgroundColor: colors.background,
+          },
+        ]}
+        animation="fadeInUpBig">
+        <Text style={[styles.text_footer, {color: colors.text}]}>Email</Text>
         <View style={styles.action}>
-          <FAIcon name="user-o" color="#05375a" size={20} />
+          <FAIcon name="user-o" color={colors.text} size={20} />
           <TextInput
             placeholder="Your Email"
-            style={styles.textInput}
+            placeholderTextColor="#666666"
+            style={[styles.textInput, {color: colors.text}]}
             autoCapitalize="none"
             onChangeText={val => textInputChange(val)}
           />
@@ -97,13 +108,16 @@ export default SignUp = ({navigation}) => {
           ) : null}
         </View>
 
-        <Text style={[styles.text_footer, {marginTop: 35}]}>Password</Text>
+        <Text style={[styles.text_footer, {marginTop: 35, color: colors.text}]}>
+          Password
+        </Text>
         <View style={styles.action}>
-          <Icon name="lock" color="#05375a" size={20} />
+          <Icon name="lock" color={colors.text} size={20} />
           <TextInput
             placeholder="Your Password"
+            placeholderTextColor="#666666"
             secureTextEntry={data.secureTextEntry}
-            style={styles.textInput}
+            style={[styles.textInput, {color: colors.text}]}
             autoCapitalize="none"
             onChangeText={val => handleConfirmPasswordChange(val)}
           />
@@ -116,15 +130,16 @@ export default SignUp = ({navigation}) => {
           </TouchableOpacity>
         </View>
 
-        <Text style={[styles.text_footer, {marginTop: 35}]}>
+        <Text style={[styles.text_footer, {marginTop: 35, color: colors.text}]}>
           Confirm Password
         </Text>
         <View style={styles.action}>
-          <Icon name="lock" color="#05375a" size={20} />
+          <Icon name="lock" color={colors.text} size={20} />
           <TextInput
             placeholder="Confirm Your Password"
+            placeholderTextColor="#666666"
             secureTextEntry={data.confirm_secureTextEntry}
-            style={styles.textInput}
+            style={[styles.textInput, {color: colors.text}]}
             autoCapitalize="none"
             onChangeText={val => handlePasswordChange(val)}
           />
