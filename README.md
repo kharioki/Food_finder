@@ -1,3 +1,3 @@
-## React_navigation_v5_intro
+## Food_Finder App
 
-Using [React Navigation](https://reactnavigation.org/docs/getting-started/) to show navigation in a mobile app using drawers, stack, etc.
+An implementation of a food finder app using react-native maps.
