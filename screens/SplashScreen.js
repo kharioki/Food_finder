@@ -7,26 +7,29 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
+
+import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 Icon.loadFont();
 
-export default Splash = () => {
+export default Splash = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image
+        <Animatable.Image
+          animation="bounceIn"
           source={require('../assets/logo_img.png')}
           style={styles.logo}
           resizeMode="stretch"
         />
       </View>
-      <View style={styles.footer}>
+      <Animatable.View style={styles.footer} animation="fadeInUpBig">
         <Text style={styles.title}>Stay safe around everyone.</Text>
         <Text style={styles.text}>Sign in with account</Text>
         <View style={styles.button}>
-          <TouchableOpacity onPress={() => alert('click')}>
+          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
             <LinearGradient
               colors={['#08d4c4', '#01ab9d']}
               style={styles.signIn}>
@@ -35,7 +38,7 @@ export default Splash = () => {
             </LinearGradient>
           </TouchableOpacity>
         </View>
-      </View>
+      </Animatable.View>
     </View>
   );
 };
