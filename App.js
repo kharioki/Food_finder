@@ -20,20 +20,23 @@ export default App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [userToken, setUserToken] = useState(null);
 
-  const authContext = useMemo(() => ({
-    signIn: () => {
-      setUserToken('kharioki');
-      setIsLoading(false);
-    },
-    signOut: () => {
-      setUserToken(null);
-      setIsLoading(false);
-    },
-    signUp: () => {
-      setUserToken('kharioki');
-      setIsLoading(false);
-    },
-  }));
+  const authContext = useMemo(
+    () => ({
+      signIn: () => {
+        setUserToken('kharioki');
+        setIsLoading(false);
+      },
+      signOut: () => {
+        setUserToken(null);
+        setIsLoading(false);
+      },
+      signUp: () => {
+        setUserToken('kharioki');
+        setIsLoading(false);
+      },
+    }),
+    [],
+  );
 
   useEffect(() => {
     setTimeout(() => {
