@@ -22,7 +22,7 @@ export default MainTabScreen = () => (
       component={HomeStackScreen}
       options={{
         tabBarLabel: 'Home',
-        tabBarColor: '#009387',
+        tabBarColor: '#ff6347',
         tabBarIcon: ({color}) => (
           <Icon name="ios-home" color={color} size={26} />
         ),
@@ -33,7 +33,7 @@ export default MainTabScreen = () => (
       component={DetailsStackScreen}
       options={{
         tabBarLabel: 'Details',
-        tabBarColor: '#1f65ff',
+        tabBarColor: '#009387',
         tabBarIcon: ({color}) => (
           <Icon name="ios-notifications" color={color} size={26} />
         ),
@@ -68,7 +68,7 @@ export const HomeStackScreen = ({navigation}) => (
   <HomeStack.Navigator
     screenOptions={{
       headerStyle: {
-        backgroundColor: '#009387',
+        backgroundColor: '#ff6347',
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
@@ -84,7 +84,7 @@ export const HomeStackScreen = ({navigation}) => (
           <Icon.Button
             name="ios-menu"
             size={25}
-            backgroundColor="#009387"
+            backgroundColor="#ff6347"
             onPress={() => navigation.openDrawer()}
           />
         ),
@@ -97,7 +97,7 @@ export const DetailsStackScreen = ({navigation}) => (
   <DetailsStack.Navigator
     screenOptions={{
       headerStyle: {
-        backgroundColor: '#1f65ff',
+        backgroundColor: '#009387',
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
@@ -112,7 +112,7 @@ export const DetailsStackScreen = ({navigation}) => (
           <Icon.Button
             name="ios-menu"
             size={25}
-            backgroundColor="#1f65ff"
+            backgroundColor="#009387"
             onPress={() => navigation.openDrawer()}
           />
         ),

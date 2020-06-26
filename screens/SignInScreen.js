@@ -117,7 +117,7 @@ export default SignIn = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="#009387" barStyle="light-content" />
+      <StatusBar backgroundColor="#ff6347" barStyle="light-content" />
       <View style={styles.header}>
         <Text style={styles.text_header}>Welcome!</Text>
       </View>
@@ -188,7 +188,7 @@ export default SignIn = ({navigation}) => {
             style={styles.signIn}
             onPress={() => handleLogin(data.username, data.password)}>
             <LinearGradient
-              colors={['#08d4c4', '#01ab9d']}
+              colors={['#ffa07a', '#ff6347']}
               style={styles.signIn}>
               <Text style={[styles.textSign, {color: '#fff'}]}>Sign In</Text>
             </LinearGradient>
@@ -199,12 +199,12 @@ export default SignIn = ({navigation}) => {
             style={[
               styles.signIn,
               {
-                borderColor: '#009387',
+                borderColor: '#ff6347',
                 borderWidth: 1,
                 marginTop: 15,
               },
             ]}>
-            <Text style={[styles.textSign, {color: '#009387'}]}>Sign Up</Text>
+            <Text style={[styles.textSign, {color: '#ff6347'}]}>Sign Up</Text>
           </TouchableOpacity>
         </View>
       </Animatable.View>
@@ -215,7 +215,7 @@ export default SignIn = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#009387',
+    backgroundColor: '#ff6347',
   },
   header: {
     flex: 1,

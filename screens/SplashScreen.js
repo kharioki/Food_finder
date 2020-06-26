@@ -23,7 +23,7 @@ export default Splash = ({navigation}) => {
         <Animatable.Image
           animation="bounceIn"
           duration={1500}
-          source={require('../assets/logo_img.png')}
+          source={require('../assets/food_finder.png')}
           style={styles.logo}
           resizeMode="stretch"
         />
@@ -37,13 +37,13 @@ export default Splash = ({navigation}) => {
         ]}
         animation="fadeInUpBig">
         <Text style={[styles.title, {color: colors.text}]}>
-          Stay safe around everyone.
+          Find cool foods around you.
         </Text>
         <Text style={styles.text}>Sign in with account</Text>
         <View style={styles.button}>
           <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
             <LinearGradient
-              colors={['#08d4c4', '#01ab9d']}
+              colors={['#ffa07a', '#ff6347']}
               style={styles.signIn}>
               <Text style={styles.textSign}>Get Started</Text>
               <Icon name="navigate-next" color="#fff" size={20} />
@@ -61,7 +61,7 @@ const height_logo = height * 0.28;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#009387',
+    backgroundColor: '#ff6347',
   },
   header: {
     flex: 2,
