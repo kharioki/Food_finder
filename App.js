@@ -64,17 +64,14 @@ export default App = () => {
 
   const authContext = useMemo(
     () => ({
-      signIn: async (userName, password) => {
-        let userToken;
-        userToken = null;
+      signIn: async foundUser => {
+        const userToken = String(foundUser[0].userToken);
+        const userName = foundUser[0].username;
 
-        if (userName == 'user' && password == 'pass') {
-          try {
-            userToken = 'kiki';
-            await AsyncStorage.setItem('userToken', userToken);
-          } catch (e) {
-            console.log(e);
-          }
+        try {
+          await AsyncStorage.setItem('userToken', userToken);
+        } catch (e) {
+          console.log(e);
         }
 
         dispatch({type: 'LOGIN', id: userName, token: userToken});

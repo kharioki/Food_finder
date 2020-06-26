@@ -20,6 +20,7 @@ export default Splash = ({navigation}) => {
       <View style={styles.header}>
         <Animatable.Image
           animation="bounceIn"
+          duration={1500}
           source={require('../assets/logo_img.png')}
           style={styles.logo}
           resizeMode="stretch"
