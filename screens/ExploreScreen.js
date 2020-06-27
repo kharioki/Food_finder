@@ -1,251 +1,146 @@
-import React from 'react';
-import MapView, {PROVIDER_GOOGLE, Marker, Callout} from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
+import React, {useState, useRef} from 'react';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
 
-import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  ScrollView,
+  Animated,
+  TouchableOpacity,
+  Platform,
+  StyleSheet,
+  Dimensions,
+  Image,
+} from 'react-native';
+
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+
+import {markers, mapDarkStyle, mapStandardStyle} from '../model/mapData';
+
 import {useTheme} from '@react-navigation/native';
+
+Ionicons.loadFont();
+MaterialCommunityIcons.loadFont();
+Fontisto.loadFont();
 
 const {width, height} = Dimensions.get('window');
 const CARD_HEIGHT = 220;
 const CARD_WIDTH = width * 0.8;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
-const mapDarkStyle = [
-  {
-    elementType: 'geometry',
-    stylers: [
-      {
-        color: '#212121',
-      },
-    ],
-  },
-  {
-    elementType: 'labels.icon',
-    stylers: [
-      {
-        visibility: 'off',
-      },
-    ],
-  },
-  {
-    elementType: 'labels.text.fill',
-    stylers: [
-      {
-        color: '#757575',
-      },
-    ],
-  },
-  {
-    elementType: 'labels.text.stroke',
-    stylers: [
-      {
-        color: '#212121',
-      },
-    ],
-  },
-  {
-    featureType: 'administrative',
-    elementType: 'geometry',
-    stylers: [
-      {
-        color: '#757575',
-      },
-    ],
-  },
-  {
-    featureType: 'administrative.country',
-    elementType: 'labels.text.fill',
-    stylers: [
-      {
-        color: '#9e9e9e',
-      },
-    ],
-  },
-  {
-    featureType: 'administrative.land_parcel',
-    stylers: [
-      {
-        visibility: 'off',
-      },
-    ],
-  },
-  {
-    featureType: 'administrative.locality',
-    elementType: 'labels.text.fill',
-    stylers: [
-      {
-        color: '#bdbdbd',
-      },
-    ],
-  },
-  {
-    featureType: 'poi',
-    elementType: 'labels.text.fill',
-    stylers: [
-      {
-        color: '#757575',
-      },
-    ],
-  },
-  {
-    featureType: 'poi.park',
-    elementType: 'geometry',
-    stylers: [
-      {
-        color: '#181818',
-      },
-    ],
-  },
-  {
-    featureType: 'poi.park',
-    elementType: 'labels.text.fill',
-    stylers: [
-      {
-        color: '#616161',
-      },
-    ],
-  },
-  {
-    featureType: 'poi.park',
-    elementType: 'labels.text.stroke',
-    stylers: [
-      {
-        color: '#1b1b1b',
-      },
-    ],
-  },
-  {
-    featureType: 'road',
-    elementType: 'geometry.fill',
-    stylers: [
-      {
-        color: '#2c2c2c',
-      },
-    ],
-  },
-  {
-    featureType: 'road',
-    elementType: 'labels.text.fill',
-    stylers: [
-      {
-        color: '#8a8a8a',
-      },
-    ],
-  },
-  {
-    featureType: 'road.arterial',
-    elementType: 'geometry',
-    stylers: [
-      {
-        color: '#373737',
-      },
-    ],
-  },
-  {
-    featureType: 'road.highway',
-    elementType: 'geometry',
-    stylers: [
-      {
-        color: '#3c3c3c',
-      },
-    ],
-  },
-  {
-    featureType: 'road.highway.controlled_access',
-    elementType: 'geometry',
-    stylers: [
-      {
-        color: '#4e4e4e',
-      },
-    ],
-  },
-  {
-    featureType: 'road.local',
-    elementType: 'labels.text.fill',
-    stylers: [
-      {
-        color: '#616161',
-      },
-    ],
-  },
-  {
-    featureType: 'transit',
-    elementType: 'labels.text.fill',
-    stylers: [
-      {
-        color: '#757575',
-      },
-    ],
-  },
-  {
-    featureType: 'water',
-    elementType: 'geometry',
-    stylers: [
-      {
-        color: '#000000',
-      },
-    ],
-  },
-  {
-    featureType: 'water',
-    elementType: 'labels.text.fill',
-    stylers: [
-      {
-        color: '#3d3d3d',
-      },
-    ],
-  },
-];
-
-const mapStandardStyle = [
-  {
-    elementType: 'labels.icon',
-    stylers: [
-      {
-        visibility: 'off',
-      },
-    ],
-  },
-];
-
 export default Explore = () => {
   const theme = useTheme();
+
+  const initialMapState = {
+    markers,
+    categories: [
+      {
+        name: 'Fastfood Center',
+        icon: (
+          <MaterialCommunityIcons
+            style={styles.chipsIcon}
+            name="food-fork-drink"
+            size={18}
+          />
+        ),
+      },
+      {
+        name: 'Restaurant',
+        icon: (
+          <Ionicons name="ios-restaurant" style={styles.chipsIcon} size={18} />
+        ),
+      },
+      {
+        name: 'Dineouts',
+        icon: (
+          <Ionicons name="md-restaurant" style={styles.chipsIcon} size={18} />
+        ),
+      },
+      {
+        name: 'Snacks Corner',
+        icon: (
+          <MaterialCommunityIcons
+            name="food"
+            style={styles.chipsIcon}
+            size={18}
+          />
+        ),
+      },
+      {
+        name: 'Hotel',
+        icon: <Fontisto name="hotel" style={styles.chipsIcon} size={15} />,
+      },
+    ],
+    region: {
+      latitude: 22.62938671242907,
+      longitude: 88.4354486029795,
+      latitudeDelta: 0.04864195044303443,
+      longitudeDelta: 0.040142817690068,
+    },
+  };
+
+  const [state, setState] = useState(initialMapState);
+
+  const _map = useRef(null);
+  const _scrollView = useRef(null);
 
   return (
     <View style={styles.container}>
       <MapView
-        provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+        ref={_map}
+        initialRegion={state.region}
         style={styles.container}
-        customMapStyle={theme.dark ? mapDarkStyle : mapStandardStyle}
-        region={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.015,
-          longitudeDelta: 0.0121,
-        }}>
-        <Marker
-          coordinate={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-          }}
-          image={require('../assets/map_marker.png')}
-          title="Test title"
-          description="Test description">
-          <Callout tooltip>
-            <View>
-              <View style={styles.bubble}>
-                <Text style={styles.name}>Favorite restaurant</Text>
-                {/*<Text>A short description</Text>*/}
-                <Image
-                  style={styles.image}
-                  source={require('../assets/banners/food-banner1.jpg')}
+        provider={PROVIDER_GOOGLE}
+        customMapStyle={theme.dark ? mapDarkStyle : mapStandardStyle}>
+        {state.markers.map((marker, index) => {
+          // const scaleStyle = {
+          //   transform: [
+          //     {
+          //       scale: interpolations[index].scale,
+          //     },
+          //   ],
+          // };
+          return (
+            <MapView.Marker
+              key={index}
+              coordinate={marker.coordinate}
+              onPress={e => onMarkerPress(e)}>
+              <Animated.View style={[styles.markerWrap]}>
+                <Animated.Image
+                  source={require('../assets/map_marker.png')}
+                  style={[styles.marker]}
+                  resizeMode="cover"
                 />
-              </View>
-              <View style={styles.arrowBorder} />
-              <View style={styles.arrow} />
-            </View>
-          </Callout>
-        </Marker>
+              </Animated.View>
+            </MapView.Marker>
+          );
+        })}
       </MapView>
+      <View style={styles.searchBox}>
+        <TextInput
+          placeholder="Search here"
+          placeholderTextColor="#000"
+          autoCapitalize="none"
+          style={{flex: 1, padding: 0}}
+        />
+        <Ionicons name="ios-search" size={20} />
+      </View>
+      <ScrollView
+        horizontal
+        scrollEventThrottle={1}
+        showsHorizontalScrollIndicator={false}
+        height={50}
+        style={styles.chipsScrollView}>
+        {state.categories.map((category, index) => (
+          <TouchableOpacity style={styles.chipsItem} key={index}>
+            {category.icon}
+            <Text>{category.name}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
     </View>
   );
 };
@@ -253,43 +148,6 @@ export default Explore = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  // callout bubble
-  bubble: {
-    flexDirection: 'column',
-    alignSelf: 'flex-start',
-    backgroundColor: '#fff',
-    borderRadius: 6,
-    borderColor: '#ccc',
-    borderWidth: 0.5,
-    padding: 15,
-    width: 150,
-  },
-  // arrow below bubble
-  arrow: {
-    backgroundColor: 'transparent',
-    borderColor: 'transparent',
-    borderTopColor: '#fff',
-    borderWidth: 16,
-    alignSelf: 'center',
-    marginTop: -32,
-  },
-  arrowBorder: {
-    backgroundColor: 'transparent',
-    borderColor: 'transparent',
-    borderTopColor: '#007a87',
-    borderWidth: 16,
-    alignSelf: 'center',
-    marginTop: -0.5,
-  },
-  // character name
-  name: {
-    fontSize: 16,
-    marginBottom: 5,
-  },
-  image: {
-    width: 120,
-    height: 80,
   },
   searchBox: {
     position: 'absolute',

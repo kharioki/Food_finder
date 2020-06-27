@@ -8,6 +8,7 @@ import Home from './HomeScreen';
 import Details from './DetailsScreen';
 import Profile from './ProfileScreen';
 import Explore from './ExploreScreen';
+import MapTest from './MapTestScreen';
 
 const HomeStack = createStackNavigator();
 const DetailsStack = createStackNavigator();
