@@ -19,6 +19,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Fontisto from 'react-native-vector-icons/Fontisto';
 
 import {markers, mapDarkStyle, mapStandardStyle} from '../model/mapData';
+import StarRating from '../components/StarRating';
 
 import {useTheme} from '@react-navigation/native';
 
@@ -152,6 +153,45 @@ export default Explore = () => {
           </TouchableOpacity>
         ))}
       </ScrollView>
+      <Animated.ScrollView
+        horizontal
+        scrollEventThrottle={1}
+        showsHorizontalScrollIndicator={false}
+        style={styles.scrollView}>
+        {state.markers.map((marker, index) => (
+          <View style={styles.card} key={index}>
+            <Image
+              source={marker.image}
+              style={styles.cardImage}
+              resizeMode="cover"
+            />
+            <View style={styles.textContent}>
+              <Text numberOfLines={1} style={styles.cardtitle}>
+                {marker.title}
+              </Text>
+              <StarRating ratings={marker.rating} reviews={marker.reviews} />
+              <Text numberOfLines={1} style={styles.cardDescription}>
+                {marker.description}
+              </Text>
+              <View style={styles.button}>
+                <TouchableOpacity
+                  onPress={() => {}}
+                  style={[
+                    styles.signIn,
+                    {
+                      borderColor: '#ff6347',
+                      borderWidth: 1,
+                    },
+                  ]}>
+                  <Text style={[styles.textSign, {color: '#ff6347'}]}>
+                    Order Now
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        ))}
+      </Animated.ScrollView>
     </View>
   );
 };
