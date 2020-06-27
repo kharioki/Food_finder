@@ -133,6 +133,17 @@ export default Explore = () => {
     return {scale};
   });
 
+  const onMarkerPress = mapEventData => {
+    const markerId = mapEventData._targetInst.return.key;
+
+    let x = markerId * CARD_WIDTH + markerId * 20;
+    if (Platform.OS === 'ios') {
+      x = x - SPACING_FOR_CARD_INSET;
+    }
+
+    _scrollView.current.scrollTo({x: x, y: 0, animated: true});
+  };
+
   const _map = useRef(null);
   const _scrollView = useRef(null);
 
@@ -202,6 +213,7 @@ export default Explore = () => {
         ))}
       </ScrollView>
       <Animated.ScrollView
+        ref={_scrollView}
         horizontal
         scrollEventThrottle={1}
         showsHorizontalScrollIndicator={false}
