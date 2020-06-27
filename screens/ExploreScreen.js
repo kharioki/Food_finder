@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
 
 import {
@@ -85,6 +85,54 @@ export default Explore = () => {
 
   const [state, setState] = useState(initialMapState);
 
+  let mapIndex = 0;
+  let mapAnimation = new Animated.Value(0);
+
+  useEffect(() => {
+    mapAnimation.addListener(({value}) => {
+      let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing
+      if (index >= state.markers.length) {
+        index = state.markers.length - 1;
+      }
+      if (index <= 0) {
+        index = 0;
+      }
+
+      clearTimeout(regionTimeout);
+
+      const regionTimeout = setTimeout(() => {
+        if (mapIndex !== index) {
+          mapIndex = index;
+          const {coordinate} = state.markers[index];
+          _map.current.animateToRegion(
+            {
+              ...coordinate,
+              latitudeDelta: state.region.latitudeDelta,
+              longitudeDelta: state.region.longitudeDelta,
+            },
+            350,
+          );
+        }
+      }, 10);
+    });
+  }, []);
+
+  const interpolations = state.markers.map((marker, index) => {
+    const inputRange = [
+      (index - 1) * CARD_WIDTH,
+      index * CARD_WIDTH,
+      (index + 1) * CARD_WIDTH,
+    ];
+
+    const scale = mapAnimation.interpolate({
+      inputRange,
+      outputRange: [1, 1.5, 1],
+      extrapolate: 'clamp',
+    });
+
+    return {scale};
+  });
+
   const _map = useRef(null);
   const _scrollView = useRef(null);
 
@@ -97,13 +145,13 @@ export default Explore = () => {
         provider={PROVIDER_GOOGLE}
         customMapStyle={theme.dark ? mapDarkStyle : mapStandardStyle}>
         {state.markers.map((marker, index) => {
-          // const scaleStyle = {
-          //   transform: [
-          //     {
-          //       scale: interpolations[index].scale,
-          //     },
-          //   ],
-          // };
+          const scaleStyle = {
+            transform: [
+              {
+                scale: interpolations[index].scale,
+              },
+            ],
+          };
           return (
             <MapView.Marker
               key={index}
@@ -112,7 +160,7 @@ export default Explore = () => {
               <Animated.View style={[styles.markerWrap]}>
                 <Animated.Image
                   source={require('../assets/map_marker.png')}
-                  style={[styles.marker]}
+                  style={[styles.marker, scaleStyle]}
                   resizeMode="cover"
                 />
               </Animated.View>
@@ -171,7 +219,19 @@ export default Explore = () => {
         contentContainerStyle={{
           paddingHorizontal:
             Platform.OS === 'android' ? SPACING_FOR_CARD_INSET : 0,
-        }}>
+        }}
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: {
+                contentOffset: {
+                  x: mapAnimation,
+                },
+              },
+            },
+          ],
+          {useNativeDriver: true},
+        )}>
         {state.markers.map((marker, index) => (
           <View style={styles.card} key={index}>
             <Image
