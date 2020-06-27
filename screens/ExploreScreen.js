@@ -157,7 +157,21 @@ export default Explore = () => {
         horizontal
         scrollEventThrottle={1}
         showsHorizontalScrollIndicator={false}
-        style={styles.scrollView}>
+        style={styles.scrollView}
+        pagingEnabled
+        snapToInterval={CARD_WIDTH + 20}
+        snapToAlignment="center"
+        contentInset={{
+          // for ios
+          top: 0,
+          left: SPACING_FOR_CARD_INSET,
+          bottom: 0,
+          right: SPACING_FOR_CARD_INSET,
+        }}
+        contentContainerStyle={{
+          paddingHorizontal:
+            Platform.OS === 'android' ? SPACING_FOR_CARD_INSET : 0,
+        }}>
         {state.markers.map((marker, index) => (
           <View style={styles.card} key={index}>
             <Image
