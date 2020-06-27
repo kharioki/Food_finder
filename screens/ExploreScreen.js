@@ -133,7 +133,18 @@ export default Explore = () => {
         scrollEventThrottle={1}
         showsHorizontalScrollIndicator={false}
         height={50}
-        style={styles.chipsScrollView}>
+        style={styles.chipsScrollView}
+        contentInset={{
+          // ios only
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 20,
+        }}
+        contentContainerStyle={{
+          // for android
+          paddingRight: Platform.OS === 'android' ? 20 : 0,
+        }}>
         {state.categories.map((category, index) => (
           <TouchableOpacity style={styles.chipsItem} key={index}>
             {category.icon}
