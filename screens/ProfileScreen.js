@@ -57,6 +57,54 @@ export default Profile = () => {
           <Text style={{color: '#777', marginLeft: 20}}>tony@stark.com</Text>
         </View>
       </View>
+
+      <View style={styles.infoBoxWrapper}>
+        <View
+          style={[
+            styles.infoBox,
+            {borderRightColor: '#ddd', borderRightWidth: 1},
+          ]}>
+          <Title>$140</Title>
+          <Caption>Wallet</Caption>
+        </View>
+        <View style={styles.infoBox}>
+          <Title>12</Title>
+          <Caption>Orders</Caption>
+        </View>
+      </View>
+
+      <View style={styles.menuWrapper}>
+        <TouchableRipple onPress={() => {}}>
+          <View style={styles.menuItem}>
+            <Icon name="heart-outline" color="#ff6347" size={25} />
+            <Text style={styles.menuItemText}>Your Favorites</Text>
+          </View>
+        </TouchableRipple>
+        <TouchableRipple onPress={() => {}}>
+          <View style={styles.menuItem}>
+            <Icon name="credit-card" color="#ff6347" size={25} />
+            <Text style={styles.menuItemText}>Payment</Text>
+          </View>
+        </TouchableRipple>
+        <TouchableRipple onPress={() => {}}>
+          <View style={styles.menuItem}>
+            <Icon name="share-outline" color="#ff6347" size={25} />
+            <Text style={styles.menuItemText}>Tell your friends</Text>
+          </View>
+        </TouchableRipple>
+        <TouchableRipple onPress={() => {}}>
+          <View style={styles.menuItem}>
+            <Icon name="account-check-outline" color="#ff6347" size={25} />
+            <Text style={styles.menuItemText}>Support</Text>
+          </View>
+        </TouchableRipple>
+        <TouchableRipple onPress={() => {}}>
+          <View style={styles.menuItem}>
+            <Icon name="cog-outline" color="#ff6347" size={25} />
+            <Text style={styles.menuItemText}>Settings</Text>
+          </View>
+        </TouchableRipple>
+      </View>
     </SafeAreaView>
   );
 };
