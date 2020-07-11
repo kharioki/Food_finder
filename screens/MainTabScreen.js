@@ -3,15 +3,19 @@ import React from 'react';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Home from './HomeScreen';
 import Details from './DetailsScreen';
 import Profile from './ProfileScreen';
 import Explore from './ExploreScreen';
 import MapTest from './MapTestScreen';
+import EditProfile from './EditProfileScreen';
 
 const HomeStack = createStackNavigator();
 const DetailsStack = createStackNavigator();
+const ProfileStack = createStackNavigator();
+
 const Tab = createMaterialBottomTabNavigator();
 
 Icon.loadFont();
@@ -42,7 +46,7 @@ export default MainTabScreen = () => (
     />
     <Tab.Screen
       name="Profile"
-      component={Profile}
+      component={ProfileStackScreen}
       options={{
         tabBarLabel: 'Profile',
         tabBarColor: '#694fad',
@@ -120,4 +124,57 @@ export const DetailsStackScreen = ({navigation}) => (
       }}
     />
   </DetailsStack.Navigator>
+);
+
+export const ProfileStackScreen = ({navigation}) => (
+  <ProfileStack.Navigator
+    screenOptions={{
+      headerStyle: {
+        backgroundColor: '#fff',
+      },
+      headerTintColor: '#000',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    }}>
+    <ProfileStack.Screen
+      name="Profile"
+      component={Profile}
+      options={{
+        title: '',
+        headerLeft: () => (
+          <Icon.Button
+            name="ios-menu"
+            size={25}
+            color="#000"
+            backgroundColor="#fff"
+            onPress={() => navigation.openDrawer()}
+          />
+        ),
+        headerRight: () => (
+          <Icon2.Button
+            name="account-edit"
+            size={25}
+            color="#000"
+            backgroundColor="#fff"
+            onPress={() => navigation.navigate('EditProfile')}
+          />
+        ),
+      }}
+    />
+    <ProfileStack.Screen
+      name="EditProfile"
+      component={EditProfile}
+      options={{
+        headerLeft: () => (
+          <Icon.Button
+            name="ios-arrow-back"
+            color="#000"
+            backgroundColor="#fff"
+            onPress={() => navigation.goBack()}
+          />
+        ),
+      }}
+    />
+  </ProfileStack.Navigator>
 );
