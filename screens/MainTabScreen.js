@@ -131,11 +131,10 @@ export const ProfileStackScreen = ({navigation}) => (
     screenOptions={{
       headerStyle: {
         backgroundColor: '#fff',
+        shadowColor: '#fff', // iOS
+        elevation: 0, //Android
       },
       headerTintColor: '#000',
-      headerTitleStyle: {
-        fontWeight: 'bold',
-      },
     }}>
     <ProfileStack.Screen
       name="Profile"
@@ -166,14 +165,7 @@ export const ProfileStackScreen = ({navigation}) => (
       name="EditProfile"
       component={EditProfile}
       options={{
-        headerLeft: () => (
-          <Icon.Button
-            name="ios-arrow-back"
-            color="#000"
-            backgroundColor="#fff"
-            onPress={() => navigation.goBack()}
-          />
-        ),
+        title: 'Edit Profile',
       }}
     />
   </ProfileStack.Navigator>
