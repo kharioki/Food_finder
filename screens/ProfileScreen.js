@@ -48,6 +48,14 @@ export default Profile = () => {
             Westlands, Nairobi
           </Text>
         </View>
+        <View style={styles.row}>
+          <Icon name="phone" color="#777" size={20} />
+          <Text style={{color: '#777', marginLeft: 20}}>+254 712345678</Text>
+        </View>
+        <View style={styles.row}>
+          <Icon name="email" color="#777" size={20} />
+          <Text style={{color: '#777', marginLeft: 20}}>tony@stark.com</Text>
+        </View>
       </View>
     </SafeAreaView>
   );
