@@ -13,6 +13,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 
+import ImagePicker from 'react-native-image-crop-picker';
+
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 
@@ -22,6 +24,28 @@ export default EditProfile = () => {
   const bs = createRef();
   let fall = new Animated.Value(1);
 
+  // take photo from camera
+  const takePhotoFromCamera = () => {
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      console.log(image);
+    });
+  };
+
+  // choose photo from library
+  const choosePhotoFromLibrary = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      console.log(image);
+    });
+  };
+
   const renderInner = () => (
     <View style={styles.panel}>
       {/** header */}
@@ -30,10 +54,14 @@ export default EditProfile = () => {
         <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
       </View>
       {/** buttons */}
-      <TouchableOpacity style={styles.panelButton}>
+      <TouchableOpacity
+        style={styles.panelButton}
+        onPress={takePhotoFromCamera}>
         <Text style={styles.panelButtonTitle}>Take Photo</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.panelButton}>
+      <TouchableOpacity
+        style={styles.panelButton}
+        onPress={choosePhotoFromLibrary}>
         <Text style={styles.panelButtonTitle}>Choose From Library</Text>
       </TouchableOpacity>
       <TouchableOpacity
