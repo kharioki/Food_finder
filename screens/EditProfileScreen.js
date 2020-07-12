@@ -1,4 +1,4 @@
-import React, {createRef} from 'react';
+import React, {createRef, useState} from 'react';
 import {
   View,
   Text,
@@ -19,6 +19,10 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 
 export default EditProfile = () => {
+  const [image, setImage] = useState(
+    'https://api.adorable.io/avatars/100/abott@adorable.png',
+  );
+
   const {colors} = useTheme();
 
   const bs = createRef();
@@ -28,10 +32,13 @@ export default EditProfile = () => {
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
       width: 300,
-      height: 400,
+      height: 300,
       cropping: true,
+      compressImageQuality: 0.7,
     }).then(image => {
       console.log(image);
+      setImage(image.path);
+      bs.current.snapTo(1);
     });
   };
 
@@ -39,10 +46,13 @@ export default EditProfile = () => {
   const choosePhotoFromLibrary = () => {
     ImagePicker.openPicker({
       width: 300,
-      height: 400,
+      height: 300,
       cropping: true,
+      compressImageQuality: 0.7,
     }).then(image => {
       console.log(image);
+      setImage(image.path);
+      bs.current.snapTo(1);
     });
   };
 
@@ -109,7 +119,7 @@ export default EditProfile = () => {
               }}>
               <ImageBackground
                 source={{
-                  uri: 'https://api.adorable.io/avatars/100/abott@adorable.png',
+                  uri: image,
                 }}
                 style={{height: 100, width: 100}}
                 imageStyle={{borderRadius: 15}}>
