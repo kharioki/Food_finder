@@ -57,10 +57,12 @@ export default EditProfile = () => {
   };
 
   const renderInner = () => (
-    <View style={styles.panel}>
+    <View style={[styles.panel, {backgroundColor: colors.background}]}>
       {/** header */}
       <View style={{alignItems: 'center'}}>
-        <Text style={styles.panelTitle}>Upload Photo</Text>
+        <Text style={[styles.panelTitle, {color: colors.text}]}>
+          Upload Photo
+        </Text>
         <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
       </View>
       {/** buttons */}
@@ -83,9 +85,10 @@ export default EditProfile = () => {
   );
 
   const renderHeader = () => (
-    <View style={styles.header}>
+    <View style={[styles.header, {backgroundColor: colors.background}]}>
       <View style={styles.panelHeader}>
-        <View style={styles.panelHandle}></View>
+        <View
+          style={[styles.panelHandle, {backgroundColor: colors.text}]}></View>
       </View>
     </View>
   );
