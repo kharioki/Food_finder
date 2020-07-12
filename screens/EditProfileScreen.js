@@ -64,7 +64,11 @@ export default EditProfile = () => {
         enabledGestureInteraction={true}
       />
 
-      <View style={{margin: 20}}>
+      <Animated.View
+        style={{
+          margin: 20,
+          opacity: Animated.add(0.15, Animated.multiply(fall, 1.0)),
+        }}>
         <View style={{alignItems: 'center'}}>
           <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
             <View
@@ -175,7 +179,7 @@ export default EditProfile = () => {
         <TouchableOpacity style={styles.commandButton} onPress={() => {}}>
           <Text style={styles.panelButtonTitle}>Submit</Text>
         </TouchableOpacity>
-      </View>
+      </Animated.View>
     </View>
   );
 };
