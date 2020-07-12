@@ -5,6 +5,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import {useTheme} from '@react-navigation/native';
+
 import Home from './HomeScreen';
 import Details from './DetailsScreen';
 import Profile from './ProfileScreen';
@@ -126,47 +128,51 @@ export const DetailsStackScreen = ({navigation}) => (
   </DetailsStack.Navigator>
 );
 
-export const ProfileStackScreen = ({navigation}) => (
-  <ProfileStack.Navigator
-    screenOptions={{
-      headerStyle: {
-        backgroundColor: '#fff',
-        shadowColor: '#fff', // iOS
-        elevation: 0, //Android
-      },
-      headerTintColor: '#000',
-    }}>
-    <ProfileStack.Screen
-      name="Profile"
-      component={Profile}
-      options={{
-        title: '',
-        headerLeft: () => (
-          <Icon.Button
-            name="ios-menu"
-            size={25}
-            color="#000"
-            backgroundColor="#fff"
-            onPress={() => navigation.openDrawer()}
-          />
-        ),
-        headerRight: () => (
-          <Icon2.Button
-            name="account-edit"
-            size={25}
-            color="#000"
-            backgroundColor="#fff"
-            onPress={() => navigation.navigate('EditProfile')}
-          />
-        ),
-      }}
-    />
-    <ProfileStack.Screen
-      name="EditProfile"
-      component={EditProfile}
-      options={{
-        title: 'Edit Profile',
-      }}
-    />
-  </ProfileStack.Navigator>
-);
+export const ProfileStackScreen = ({navigation}) => {
+  const {colors} = useTheme();
+
+  return (
+    <ProfileStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: colors.background,
+          shadowColor: colors.background, // iOS
+          elevation: 0, //Android
+        },
+        headerTintColor: colors.text,
+      }}>
+      <ProfileStack.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          title: '',
+          headerLeft: () => (
+            <Icon.Button
+              name="ios-menu"
+              size={25}
+              color={colors.text}
+              backgroundColor={colors.background}
+              onPress={() => navigation.openDrawer()}
+            />
+          ),
+          headerRight: () => (
+            <Icon2.Button
+              name="account-edit"
+              size={25}
+              color={colors.text}
+              backgroundColor={colors.background}
+              onPress={() => navigation.navigate('EditProfile')}
+            />
+          ),
+        }}
+      />
+      <ProfileStack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{
+          title: 'Edit Profile',
+        }}
+      />
+    </ProfileStack.Navigator>
+  );
+};
