@@ -11,10 +11,6 @@ export default Home = ({navigation}) => {
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <StatusBar barStyle={theme.dark ? 'light-content' : 'dark-content'} />
       <Text style={{color: colors.text}}>Home screen</Text>
-      <Button
-        title="Go to details screen"
-        onPress={() => navigation.navigate('Details')}
-      />
     </View>
   );
 };
