@@ -24,24 +24,56 @@ export default Details = () => {
   const VisibleItem = props => {
     const {data} = props;
     return (
-      <TouchableHighlight style={styles.rowFrontVisible}>
-        <View>
-          <Text style={styles.title} numberOfLines={1}>
-            {data.item.title}
-          </Text>
-          <Text style={styles.details} numberOfLines={1}>
-            {data.item.details}
-          </Text>
-        </View>
-      </TouchableHighlight>
+      <View style={styles.rowFront}>
+        <TouchableHighlight style={styles.rowFrontVisible}>
+          <View>
+            <Text style={styles.title} numberOfLines={1}>
+              {data.item.title}
+            </Text>
+            <Text style={styles.details} numberOfLines={1}>
+              {data.item.details}
+            </Text>
+          </View>
+        </TouchableHighlight>
+      </View>
     );
   };
+
+  const HiddenItemWithActions = props => {
+    const {onClose, onDelete} = props;
+    return (
+      <View style={styles.rowBack}>
+        <Text>Left</Text>
+        <TouchableOpacity
+          style={[styles.backRightBtn, styles.backRightBtnLeft]}>
+          <Text>Close</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.backRightBtn, styles.backRightBtnRight]}>
+          <Text>Delete</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  const closeRow = (rowMap, rowKey) => {};
+
+  const deleteRow = (rowMap, rowKey) => {};
 
   const renderItem = (data, rowMap) => {
     return <VisibleItem data={data} />;
   };
 
-  const renderHiddenItem = () => {};
+  const renderHiddenItem = (data, rowMap) => {
+    return (
+      <HiddenItemWithActions
+        data={data}
+        rowMap={rowMap}
+        onClose={() => closeRow(rowMap, data.item.key)}
+        onDelete={() => deleteRow(rowMap, data.item.key)}
+      />
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -49,6 +81,8 @@ export default Details = () => {
         data={listData}
         renderItem={renderItem}
         renderHiddenItem={renderHiddenItem}
+        leftOpenValue={75}
+        rightOpenValue={150}
       />
     </View>
   );
