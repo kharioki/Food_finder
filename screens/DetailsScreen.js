@@ -8,8 +8,9 @@ import {
   TouchableHighlight,
   TouchableOpacity,
 } from 'react-native';
-
 import {SwipeListView} from 'react-native-swipe-list-view';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import Notifications from '../model/notifications';
 
 export default Details = () => {
@@ -40,25 +41,58 @@ export default Details = () => {
   };
 
   const HiddenItemWithActions = props => {
-    const {onClose, onDelete} = props;
+    const {swipeAnimatedValue, onClose, onDelete} = props;
     return (
       <View style={styles.rowBack}>
         <Text>Left</Text>
         <TouchableOpacity
-          style={[styles.backRightBtn, styles.backRightBtnLeft]}>
-          <Text>Close</Text>
+          style={[styles.backRightBtn, styles.backRightBtnLeft]}
+          onPress={onClose}>
+          <Icon
+            name="close-circle-outline"
+            size={25}
+            style={styles.trash}
+            color="#fff"
+          />
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.backRightBtn, styles.backRightBtnRight]}>
-          <Text>Delete</Text>
+          style={[styles.backRightBtn, styles.backRightBtnRight]}
+          onPress={onDelete}>
+          <Animated.View
+            style={[
+              styles.trash,
+              {
+                transform: [
+                  {
+                    scale: swipeAnimatedValue.interpolate({
+                      inputRange: [-90, -45],
+                      outputRange: [1, 0],
+                      extrapolate: 'clamp',
+                    }),
+                  },
+                ],
+              },
+            ]}>
+            <Icon name="trash-can-outline" size={25} color="#fff" />
+          </Animated.View>
         </TouchableOpacity>
       </View>
     );
   };
 
-  const closeRow = (rowMap, rowKey) => {};
+  const closeRow = (rowMap, rowKey) => {
+    if (rowMap[rowKey]) {
+      rowMap[rowKey].closeRow();
+    }
+  };
 
-  const deleteRow = (rowMap, rowKey) => {};
+  const deleteRow = (rowMap, rowKey) => {
+    closeRow(rowMap, rowKey);
+    const newData = [...listData];
+    const prevIndex = listData.findIndex(item => item.key === rowKey);
+    newData.splice(prevIndex, 1);
+    setListData(newData);
+  };
 
   const renderItem = (data, rowMap) => {
     return <VisibleItem data={data} />;
@@ -82,7 +116,8 @@ export default Details = () => {
         renderItem={renderItem}
         renderHiddenItem={renderHiddenItem}
         leftOpenValue={75}
-        rightOpenValue={150}
+        rightOpenValue={-150}
+        disableRightSwipe
       />
     </View>
   );
@@ -136,7 +171,7 @@ const styles = StyleSheet.create({
     paddingRight: 17,
   },
   backRightBtnLeft: {
-    backgroundColor: '#1f65ff',
+    backgroundColor: '#009387',
     right: 75,
   },
   backRightBtnRight: {
