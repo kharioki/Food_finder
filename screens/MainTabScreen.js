@@ -39,7 +39,7 @@ export default MainTabScreen = () => (
       name="Details"
       component={DetailsStackScreen}
       options={{
-        tabBarLabel: 'Details',
+        tabBarLabel: 'Notifications',
         tabBarColor: '#009387',
         tabBarIcon: ({color}) => (
           <Icon name="ios-notifications" color={color} size={26} />
