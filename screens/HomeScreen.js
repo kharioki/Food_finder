@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, Text, Button, StatusBar} from 'react-native';
+import {View, Text, StatusBar} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
-export default Home = ({navigation}) => {
+export default Home = () => {
   const {colors} = useTheme();
 
   const theme = useTheme();
