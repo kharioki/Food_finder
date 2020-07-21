@@ -1,13 +1,129 @@
-import React from 'react';
-import {View, Text, Button} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  Animated,
+  TouchableHighlight,
+  TouchableOpacity,
+} from 'react-native';
 
-export default Details = ({navigation}) => {
-  const {colors} = useTheme();
+import {SwipeListView} from 'react-native-swipe-list-view';
+import Notifications from '../model/notifications';
+
+export default Details = () => {
+  const [listData, setListData] = useState(
+    Notifications.map(NotificationItem => ({
+      key: NotificationItem.id,
+      title: NotificationItem.title,
+      details: NotificationItem.details,
+    })),
+  );
+
+  const VisibleItem = props => {
+    const {data} = props;
+    return (
+      <TouchableHighlight style={styles.rowFrontVisible}>
+        <View>
+          <Text style={styles.title} numberOfLines={1}>
+            {data.item.title}
+          </Text>
+          <Text style={styles.details} numberOfLines={1}>
+            {data.item.details}
+          </Text>
+        </View>
+      </TouchableHighlight>
+    );
+  };
+
+  const renderItem = (data, rowMap) => {
+    return <VisibleItem data={data} />;
+  };
+
+  const renderHiddenItem = () => {};
 
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text style={{color: colors.text}}>Notifications screen</Text>
+    <View style={styles.container}>
+      <SwipeListView
+        data={listData}
+        renderItem={renderItem}
+        renderHiddenItem={renderHiddenItem}
+      />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#f4f4f4',
+    flex: 1,
+  },
+  backTextWhite: {
+    color: '#FFF',
+  },
+  rowFront: {
+    backgroundColor: '#FFF',
+    borderRadius: 5,
+    height: 60,
+    margin: 5,
+    marginBottom: 15,
+    shadowColor: '#999',
+    shadowOffset: {width: 0, height: 1},
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
+  },
+  rowFrontVisible: {
+    backgroundColor: '#FFF',
+    borderRadius: 5,
+    height: 60,
+    padding: 10,
+    marginBottom: 15,
+  },
+  rowBack: {
+    alignItems: 'center',
+    backgroundColor: '#DDD',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 15,
+    margin: 5,
+    marginBottom: 15,
+    borderRadius: 5,
+  },
+  backRightBtn: {
+    alignItems: 'flex-end',
+    bottom: 0,
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 0,
+    width: 75,
+    paddingRight: 17,
+  },
+  backRightBtnLeft: {
+    backgroundColor: '#1f65ff',
+    right: 75,
+  },
+  backRightBtnRight: {
+    backgroundColor: 'red',
+    right: 0,
+    borderTopRightRadius: 5,
+    borderBottomRightRadius: 5,
+  },
+  trash: {
+    height: 25,
+    width: 25,
+    marginRight: 7,
+  },
+  title: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginBottom: 5,
+    color: '#666',
+  },
+  details: {
+    fontSize: 12,
+    color: '#999',
+  },
+});
