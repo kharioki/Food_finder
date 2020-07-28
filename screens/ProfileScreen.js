@@ -18,8 +18,9 @@ export default Profile = () => {
 
   const myCustomShare = async () => {
     const shareOptions = {
-      message: 'This is a test message',
-      url: files.samplePdf,
+      message:
+        "Order your favorite meals from our FoodFinder App. I've already ordered a couple of times and the delivery was amazing",
+      url: files.appLogo,
       // urls: [files.image1, files.image2],
     };
 
