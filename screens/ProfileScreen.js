@@ -19,8 +19,8 @@ export default Profile = () => {
   const myCustomShare = async () => {
     const shareOptions = {
       message: 'This is a test message',
-      // url: files.image2,
-      urls: [files.image1, files.image2],
+      url: files.samplePdf,
+      // urls: [files.image1, files.image2],
     };
 
     try {
