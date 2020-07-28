@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, SafeAreaView, StyleSheet} from 'react-native';
 import {useTheme} from '@react-navigation/native';
-
 import {
   Avatar,
   Title,
@@ -9,11 +8,28 @@ import {
   Text,
   TouchableRipple,
 } from 'react-native-paper';
-
+import Share from 'react-native-share';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import files from '../assets/filesBase64';
 
 export default Profile = () => {
   const {colors} = useTheme();
+
+  const myCustomShare = async () => {
+    const shareOptions = {
+      message: 'This is a test message',
+      // url: files.image2,
+      urls: [files.image1, files.image2],
+    };
+
+    try {
+      const ShareResponse = await Share.open(shareOptions);
+      console.log(JSON.stringify(ShareResponse));
+    } catch (error) {
+      console.log('Error => ', error);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -86,7 +102,7 @@ export default Profile = () => {
             <Text style={styles.menuItemText}>Payment</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
+        <TouchableRipple onPress={myCustomShare}>
           <View style={styles.menuItem}>
             <Icon name="share-outline" color="#ff6347" size={25} />
             <Text style={styles.menuItemText}>Tell your friends</Text>
