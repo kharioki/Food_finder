@@ -1,17 +1,16 @@
 import React from 'react';
+import {View, TouchableOpacity} from 'react-native';
+import {useTheme, Avatar} from 'react-native-paper';
 
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {useTheme} from '@react-navigation/native';
-
 import Home from './HomeScreen';
 import Details from './DetailsScreen';
 import Profile from './ProfileScreen';
 import Explore from './ExploreScreen';
-import MapTest from './MapTestScreen';
 import EditProfile from './EditProfileScreen';
 
 const HomeStack = createStackNavigator();
@@ -71,34 +70,65 @@ export default MainTabScreen = () => (
   </Tab.Navigator>
 );
 
-export const HomeStackScreen = ({navigation}) => (
-  <HomeStack.Navigator
-    screenOptions={{
-      headerStyle: {
-        backgroundColor: '#ff6347',
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: 'bold',
-      },
-    }}>
-    <HomeStack.Screen
-      name="Home"
-      component={Home}
-      options={{
-        title: 'Overview',
-        headerLeft: () => (
-          <Icon.Button
-            name="ios-menu"
-            size={25}
-            backgroundColor="#ff6347"
-            onPress={() => navigation.openDrawer()}
-          />
-        ),
-      }}
-    />
-  </HomeStack.Navigator>
-);
+export const HomeStackScreen = ({navigation}) => {
+  const {colors} = useTheme();
+
+  return (
+    <HomeStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: colors.background,
+          shadowColor: colors.background, // iOS
+          elevation: 0, //Android
+        },
+        headerTintColor: colors.text,
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}>
+      <HomeStack.Screen
+        name="Home"
+        component={Home}
+        options={{
+          title: 'FoodFinder',
+          headerLeft: () => (
+            <View style={{marginLeft: 10}}>
+              <Icon.Button
+                name="ios-menu"
+                size={25}
+                color={colors.text}
+                backgroundColor={colors.background}
+                onPress={() => navigation.openDrawer()}
+              />
+            </View>
+          ),
+          headerRight: () => (
+            <View style={{flexDirection: 'row', marginRight: 10}}>
+              <Icon.Button
+                name="ios-search"
+                size={25}
+                color={colors.text}
+                backgroundColor={colors.background}
+                onPress={() => {}}
+              />
+              <TouchableOpacity
+                style={{paddingHorizontal: 10, marginTop: 5}}
+                onPress={() => navigation.navigate('Profile')}>
+                <Avatar.Image
+                  source={{
+                    uri:
+                      'https://api.adorable.io/avatars/100/abott@adorable.png',
+                  }}
+                  size={30}
+                />
+              </TouchableOpacity>
+            </View>
+          ),
+        }}
+      />
+    </HomeStack.Navigator>
+  );
+};
 
 export const DetailsStackScreen = ({navigation}) => (
   <DetailsStack.Navigator
