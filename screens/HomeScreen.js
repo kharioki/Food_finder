@@ -13,7 +13,11 @@ export default Home = () => {
     <View style={styles.container}>
       <StatusBar barStyle={theme.dark ? 'light-content' : 'dark-content'} />
       <View style={styles.sliderContainer}>
-        <Swiper height={200}>
+        <Swiper
+          autoplay
+          horizontal={false}
+          height={200}
+          activeDotColor="#ff6347">
           <View style={styles.slide}>
             <Image
               source={require('../assets/banners/food-banner1.jpg')}
@@ -24,6 +28,13 @@ export default Home = () => {
           <View style={styles.slide}>
             <Image
               source={require('../assets/banners/food-banner2.jpg')}
+              resizeMode="cover"
+              style={styles.sliderImage}
+            />
+          </View>
+          <View style={styles.slide}>
+            <Image
+              source={require('../assets/banners/food-banner3.jpg')}
               resizeMode="cover"
               style={styles.sliderImage}
             />
