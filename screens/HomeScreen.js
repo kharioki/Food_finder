@@ -1,12 +1,21 @@
 import React from 'react';
-import {View, Text, StatusBar, Image, StyleSheet} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  StatusBar,
+  Image,
+  StyleSheet,
+} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
 import Swiper from 'react-native-swiper';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export default Home = () => {
   const {colors} = useTheme();
-
   const theme = useTheme();
 
   return (
@@ -40,6 +49,46 @@ export default Home = () => {
             />
           </View>
         </Swiper>
+      </View>
+
+      <View style={styles.categoryContainer}>
+        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+          <View style={styles.categoryIcon}>
+            <Ionicons name="ios-restaurant" size={35} color="#ff6347" />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+          <View style={styles.categoryIcon}>
+            <MaterialCommunityIcons
+              name="food-fork-drink"
+              size={35}
+              color="#ff6347"
+            />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+          <View style={styles.categoryIcon}>
+            <MaterialCommunityIcons name="food" size={35} color="#ff6347" />
+          </View>
+        </TouchableOpacity>
+      </View>
+
+      <View style={[styles.categoryContainer, {marginTop: 10}]}>
+        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+          <View style={styles.categoryIcon}>
+            <Fontisto name="hotel" size={35} color="#ff6347" />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+          <View style={styles.categoryIcon}>
+            <Ionicons name="md-restaurant" size={35} color="#ff6347" />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+          <View style={styles.categoryIcon}>
+            <MaterialIcons name="expand-more" size={35} color="#ff6347" />
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
