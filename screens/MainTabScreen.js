@@ -141,6 +141,9 @@ export const HomeStackScreen = ({navigation}) => {
         name="CardItemDetails"
         options={({route}) => ({
           headerBackTitleVisible: false,
+          headerTitle: false,
+          headerTransparent: true,
+          headerTintColor: '#fff',
         })}
       />
     </HomeStack.Navigator>
