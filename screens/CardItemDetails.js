@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {
   StyleSheet,
   Image,
@@ -13,12 +13,15 @@ import HeaderImageScrollView, {
 } from 'react-native-image-header-scroll-view';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import * as Animatable from 'react-native-animatable';
 
 const MIN_HEIGHT = Platform.OS === 'ios' ? 90 : 55;
 const MAX_HEIGHT = 350;
 
 export default function CardItemDetails({route}) {
   const itemData = route.params.itemData;
+  const navTitleView = useRef(null);
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -29,8 +32,21 @@ export default function CardItemDetails({route}) {
         minOverlayOpacity={0.3}
         renderHeader={() => (
           <Image source={itemData.image} style={styles.image} />
+        )}
+        renderForeground={() => (
+          <View style={styles.titleContainer}>
+            <Text style={styles.imageTitle}>{itemData.title}</Text>
+          </View>
+        )}
+        renderFixedForeground={() => (
+          <Animatable.View style={styles.navTitleView} ref={navTitleView}>
+            <Text style={styles.navTitle}>{itemData.title}</Text>
+          </Animatable.View>
         )}>
-        <TriggeringView style={styles.section}>
+        <TriggeringView
+          style={styles.section}
+          onHide={() => navTitleView.current.fadeInUp(200)}
+          onDisplay={() => navTitleView.current.fadeOut(100)}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <Text style={styles.title}>Overview</Text>
             <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
