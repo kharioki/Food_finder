@@ -12,6 +12,7 @@ import Details from './DetailsScreen';
 import Profile from './ProfileScreen';
 import Explore from './ExploreScreen';
 import EditProfile from './EditProfileScreen';
+import CardListScreen from './CardListScreen';
 
 const HomeStack = createStackNavigator();
 const DetailsStack = createStackNavigator();
@@ -126,6 +127,7 @@ export const HomeStackScreen = ({navigation}) => {
           ),
         }}
       />
+      <HomeStack.Screen component={CardListScreen} name="CardListScreen" />
     </HomeStack.Navigator>
   );
 };
