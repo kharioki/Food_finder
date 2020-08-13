@@ -4,9 +4,14 @@ import {StyleSheet, Text, View, FlatList} from 'react-native';
 import {data} from '../model/data';
 import Card from '../components/Card';
 
-export default function CardListScreen() {
+export default function CardListScreen({navigation}) {
   const renderItem = ({item}) => {
-    return <Card itemData={item} onPress={() => {}} />;
+    return (
+      <Card
+        itemData={item}
+        onPress={() => navigation.navigate('CardItemDetails', {itemData: item})}
+      />
+    );
   };
 
   return (
