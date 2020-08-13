@@ -5,8 +5,8 @@ import {data} from '../model/data';
 import Card from '../components/Card';
 
 export default function CardListScreen() {
-  const renderItem = () => {
-    return <Card />;
+  const renderItem = ({item}) => {
+    return <Card itemData={item} onPress={() => {}} />;
   };
 
   return (

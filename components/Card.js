@@ -3,22 +3,22 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 
 import StarRating from './StarRating';
 
-export default function Card() {
+export default function Card({itemData, onPress}) {
   return (
-    <TouchableOpacity onPress={() => {}}>
+    <TouchableOpacity onPress={onPress}>
       <View style={styles.card}>
         <View style={styles.cardImgWrapper}>
           <Image
-            source={require('../assets/banners/food-banner3.jpg')}
+            source={itemData.image}
             resizeMode="cover"
             style={styles.cardImg}
           />
         </View>
         <View style={styles.cardInfo}>
-          <Text style={styles.cardTitle}>Amazing Food Place</Text>
-          <StarRating ratings={4} reviews={99} />
-          <Text style={styles.cardDetails}>
-            Some description for this amazing food place
+          <Text style={styles.cardTitle}>{itemData.title}</Text>
+          <StarRating ratings={itemData.rating} reviews={itemData.reviews} />
+          <Text numberOfLines={2} style={styles.cardDetails}>
+            {itemData.description}
           </Text>
         </View>
       </View>
