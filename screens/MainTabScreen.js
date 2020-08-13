@@ -12,6 +12,8 @@ import Details from './DetailsScreen';
 import Profile from './ProfileScreen';
 import Explore from './ExploreScreen';
 import EditProfile from './EditProfileScreen';
+import CardListScreen from './CardListScreen';
+import CardItemDetails from './CardItemDetails';
 
 const HomeStack = createStackNavigator();
 const DetailsStack = createStackNavigator();
@@ -125,6 +127,24 @@ export const HomeStackScreen = ({navigation}) => {
             </View>
           ),
         }}
+      />
+      <HomeStack.Screen
+        component={CardListScreen}
+        name="CardListScreen"
+        options={({route}) => ({
+          title: route.params.title,
+          headerBackTitleVisible: false,
+        })}
+      />
+      <HomeStack.Screen
+        component={CardItemDetails}
+        name="CardItemDetails"
+        options={({route}) => ({
+          headerBackTitleVisible: false,
+          headerTitle: false,
+          headerTransparent: true,
+          headerTintColor: '#fff',
+        })}
       />
     </HomeStack.Navigator>
   );

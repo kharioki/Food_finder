@@ -18,7 +18,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import StarRating from '../components/StarRating';
 
-export default Home = () => {
+export default Home = ({navigation}) => {
   const {colors} = useTheme();
   const theme = useTheme();
 
@@ -56,13 +56,21 @@ export default Home = () => {
       </View>
 
       <View style={styles.categoryContainer}>
-        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.categoryBtn}
+          onPress={() =>
+            navigation.navigate('CardListScreen', {title: 'Restaurant'})
+          }>
           <View style={styles.categoryIcon}>
             <Ionicons name="ios-restaurant" size={35} color="#ff6347" />
           </View>
           <Text style={styles.categoryBtnTxt}>Restaurant</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.categoryBtn}
+          onPress={() =>
+            navigation.navigate('CardListScreen', {title: 'Fastfood'})
+          }>
           <View style={styles.categoryIcon}>
             <MaterialCommunityIcons
               name="food-fork-drink"
@@ -72,7 +80,11 @@ export default Home = () => {
           </View>
           <Text style={styles.categoryBtnTxt}>Fastfood Center</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.categoryBtn}
+          onPress={() =>
+            navigation.navigate('CardListScreen', {title: 'Snacks'})
+          }>
           <View style={styles.categoryIcon}>
             <MaterialCommunityIcons name="food" size={35} color="#ff6347" />
           </View>
@@ -81,13 +93,21 @@ export default Home = () => {
       </View>
 
       <View style={[styles.categoryContainer, {marginTop: 10}]}>
-        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.categoryBtn}
+          onPress={() =>
+            navigation.navigate('CardListScreen', {title: 'Hotels'})
+          }>
           <View style={styles.categoryIcon}>
             <Fontisto name="hotel" size={35} color="#ff6347" />
           </View>
           <Text style={styles.categoryBtnTxt}>Hotels</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.categoryBtn}
+          onPress={() =>
+            navigation.navigate('CardListScreen', {title: 'Dineouts'})
+          }>
           <View style={styles.categoryIcon}>
             <Ionicons name="md-restaurant" size={35} color="#ff6347" />
           </View>
@@ -114,7 +134,7 @@ export default Home = () => {
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
-              source={require('../assets/banners/food-banner3.jpg')}
+              source={require('../assets/banners/food-banner1.jpg')}
               resizeMode="cover"
               style={styles.cardImg}
             />
@@ -130,7 +150,7 @@ export default Home = () => {
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
-              source={require('../assets/banners/food-banner3.jpg')}
+              source={require('../assets/banners/food-banner2.jpg')}
               resizeMode="cover"
               style={styles.cardImg}
             />
