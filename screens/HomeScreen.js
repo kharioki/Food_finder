@@ -58,13 +58,19 @@ export default Home = ({navigation}) => {
       <View style={styles.categoryContainer}>
         <TouchableOpacity
           style={styles.categoryBtn}
-          onPress={() => navigation.navigate('CardListScreen')}>
+          onPress={() =>
+            navigation.navigate('CardListScreen', {title: 'Restaurant'})
+          }>
           <View style={styles.categoryIcon}>
             <Ionicons name="ios-restaurant" size={35} color="#ff6347" />
           </View>
           <Text style={styles.categoryBtnTxt}>Restaurant</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.categoryBtn}
+          onPress={() =>
+            navigation.navigate('CardListScreen', {title: 'Fastfood'})
+          }>
           <View style={styles.categoryIcon}>
             <MaterialCommunityIcons
               name="food-fork-drink"
@@ -74,7 +80,11 @@ export default Home = ({navigation}) => {
           </View>
           <Text style={styles.categoryBtnTxt}>Fastfood Center</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.categoryBtn}
+          onPress={() =>
+            navigation.navigate('CardListScreen', {title: 'Snacks'})
+          }>
           <View style={styles.categoryIcon}>
             <MaterialCommunityIcons name="food" size={35} color="#ff6347" />
           </View>
@@ -83,13 +93,21 @@ export default Home = ({navigation}) => {
       </View>
 
       <View style={[styles.categoryContainer, {marginTop: 10}]}>
-        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.categoryBtn}
+          onPress={() =>
+            navigation.navigate('CardListScreen', {title: 'Hotels'})
+          }>
           <View style={styles.categoryIcon}>
             <Fontisto name="hotel" size={35} color="#ff6347" />
           </View>
           <Text style={styles.categoryBtnTxt}>Hotels</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.categoryBtn}
+          onPress={() =>
+            navigation.navigate('CardListScreen', {title: 'Dineouts'})
+          }>
           <View style={styles.categoryIcon}>
             <Ionicons name="md-restaurant" size={35} color="#ff6347" />
           </View>

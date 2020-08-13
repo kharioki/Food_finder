@@ -1,10 +1,21 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, FlatList} from 'react-native';
+
+import {data} from '../model/data';
+import Card from '../components/Card';
 
 export default function CardListScreen() {
+  const renderItem = () => {
+    return <Card />;
+  };
+
   return (
     <View style={styles.container}>
-      <Text>Boom</Text>
+      <FlatList
+        data={data}
+        keyExtractor={item => item.id}
+        renderItem={renderItem}
+      />
     </View>
   );
 }
@@ -12,7 +23,7 @@ export default function CardListScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: '90%',
+    alignSelf: 'center',
   },
 });

@@ -127,7 +127,14 @@ export const HomeStackScreen = ({navigation}) => {
           ),
         }}
       />
-      <HomeStack.Screen component={CardListScreen} name="CardListScreen" />
+      <HomeStack.Screen
+        component={CardListScreen}
+        name="CardListScreen"
+        options={({route}) => ({
+          title: route.params.title,
+          headerBackTitleVisible: false,
+        })}
+      />
     </HomeStack.Navigator>
   );
 };
