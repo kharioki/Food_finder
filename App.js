@@ -25,6 +25,8 @@ import Support from './screens/SupportScreen';
 
 import RootStack from './screens/RootStackScreen';
 
+import LottieView from 'lottie-react-native';
+
 const Drawer = createDrawerNavigator();
 
 export default App = () => {
@@ -155,7 +157,11 @@ export default App = () => {
   if (loginState.isLoading) {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <ActivityIndicator size="large" />
+        <LottieView
+          source={require('./assets/stay-home-stay-safe-red.json')}
+          autoPlay
+          loop
+        />
       </View>
     );
   }
